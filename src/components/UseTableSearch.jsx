@@ -7,38 +7,38 @@ const useTableSearch = ({ searchVal, retrieve }) => {
 
   useEffect(() => {
     setLoading(true);
-    const crawl = (user, allValues) => {
+    const crawl = (product, allValues) => {
       if (!allValues) allValues = [];
-      for (var key in user) {
-        if (typeof user[key] === "object") crawl(user[key], allValues);
-        else allValues.push(user[key] + " ");
+      for (var key in product) {
+        if (typeof product[key] === "object") crawl(product[key], allValues);
+        else allValues.push(product[key] + " ");
       }
       return allValues;
     };
     const fetchData = async () => {
-      const { data: users } = await retrieve();
-      setOrigData(users);
-      setFilteredData(users);
-      const searchInd = users.map(user => {
-        const allValues = crawl(user);
+      const { data: product } = await retrieve();
+      setOrigData(product);
+      setFilteredData(product);
+      const searchInd = product.map(item => {
+        const allValues = crawl(item);
         return { allValues: allValues.toString() };
       });
       setSearchIndex(searchInd);
-      if (users) setLoading(false);
+      if (product) setLoading(false);
     };
     fetchData();
   }, [retrieve]);
 
   useEffect(() => {
     if (searchVal) {
-      const reqData = searchIndex.map((user, index) => {
-        if (user.allValues.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0)
+      const reqData = searchIndex.map((item, index) => {
+        if (item.allValues.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0)
           return origData[index];
         return null;
       });
       setFilteredData(
-        reqData.filter(user => {
-          if (user) return true;
+        reqData.filter(item => {
+          if (item) return true;
           return false;
         })
       );

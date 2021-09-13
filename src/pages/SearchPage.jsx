@@ -20,13 +20,13 @@ export const userColumns = [
     ];
     
 
-const fetchUsers = () => {
+const fetchData = () => {
  let data =[
  {name:"Olma",price:"10 ming"},
+ {name:"Olcha",price:"13 ming"},
  {name:"Nok",price:"20 ming"},
  {name:"Banan",price:"15 ming"},
  {name:"Ananas",price:"14 ming"},
- {name:"Olcha",price:"13 ming"},
  {name:"Anor",price:"12 ming"},]
   return { data };
 };
@@ -36,7 +36,7 @@ export default function App() {
 
   const { filteredData, loading } = useTableSearch({
     searchVal,
-    retrieve: fetchUsers
+    retrieve: fetchData
   });
 
   return (
